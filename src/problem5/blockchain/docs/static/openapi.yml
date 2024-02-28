@@ -40,6 +40,43 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /alvinjiang1/blockchain/blockchain/say_hello/{name}:
+    get:
+      summary: Queries a list of SayHello items.
+      operationId: BlockchainBlockchainQuery_SayHello
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /blockchain.blockchain.Msg/UpdateParams:
     post:
       summary: |-
@@ -19700,6 +19737,11 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  blockchain.blockchain.QuerySayHelloResponse:
+    type: object
+    properties:
+      name:
+        type: string
   blockchain.blockchain.MsgUpdateParams:
     type: object
     properties:
