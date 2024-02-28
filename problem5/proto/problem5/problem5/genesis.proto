@@ -1,0 +1,17 @@
+syntax = "proto3";
+package problem5.problem5;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "problem5/problem5/params.proto";
+
+option go_package = "problem5/x/problem5/types";
+
+// GenesisState defines the problem5 module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
