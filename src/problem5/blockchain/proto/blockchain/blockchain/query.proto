@@ -7,6 +7,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "blockchain/blockchain/params.proto";
+import "blockchain/blockchain/post.proto";
 
 option go_package = "github.com/alvinjiang1/blockchain/x/blockchain/types";
 
@@ -22,6 +23,18 @@ service Query {
   // Queries a list of SayHello items.
   rpc SayHello (QuerySayHelloRequest) returns (QuerySayHelloResponse) {
     option (google.api.http).get = "/alvinjiang1/blockchain/blockchain/say_hello/{name}";
+  
+  }
+  
+  // Queries a list of ShowPost items.
+  rpc ShowPost (QueryShowPostRequest) returns (QueryShowPostResponse) {
+    option (google.api.http).get = "/alvinjiang1/blockchain/blockchain/show_post/{id}";
+  
+  }
+  
+  // Queries a list of ListPost items.
+  rpc ListPost (QueryListPostRequest) returns (QueryListPostResponse) {
+    option (google.api.http).get = "/alvinjiang1/blockchain/blockchain/list_post";
   
   }
 }
@@ -41,5 +54,23 @@ message QuerySayHelloRequest {
 
 message QuerySayHelloResponse {
   string name = 1;
+}
+
+message QueryShowPostRequest {
+  uint64 id = 1;
+}
+
+message QueryShowPostResponse {
+  Post post = 1[(gogoproto.nullable) = false];
+}
+
+message QueryListPostRequest {
+  repeated Post post = 1[(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryListPostResponse {
+  Post                                   post       = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

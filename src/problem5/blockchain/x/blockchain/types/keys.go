@@ -9,6 +9,12 @@ const (
 
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_blockchain"
+
+	// PostKey defines the prefix for a post
+	PostKey = "Post/value/"
+
+	// PostCountKey defines the ID of the latest post added to the store
+	PostCountKey = "Post/count/"
 )
 
 var (
