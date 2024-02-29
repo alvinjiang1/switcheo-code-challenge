@@ -16,11 +16,10 @@ func (k Keeper) ShowPost(goCtx context.Context, req *types.QueryShowPostRequest)
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
 	post, found := k.GetPost(ctx, req.Id)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
 
-	return &types.QueryShowPostResponse{Post: &post}, nil
+	return &types.QueryShowPostResponse{Post: post}, nil
 }
