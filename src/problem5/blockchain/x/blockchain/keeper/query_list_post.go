@@ -20,14 +20,14 @@ func (k Keeper) ListPost(ctx context.Context, req *types.QueryListPostRequest) (
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.PostKey))
 
-	var posts []*types.Post
+	var posts []types.Post
 	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
 		var post types.Post
 		if err := k.cdc.Unmarshal(value, &post); err != nil {
 			return err
 		}
 
-		posts = append(posts, &post)
+		posts = append(posts, post)
 		return nil
 	})
 
@@ -36,7 +36,7 @@ func (k Keeper) ListPost(ctx context.Context, req *types.QueryListPostRequest) (
 	}
 
 	return &types.QueryListPostResponse{
-		Post:       posts[0],
+		Post:       posts,
 		Pagination: pageRes,
 	}, nil
 }
